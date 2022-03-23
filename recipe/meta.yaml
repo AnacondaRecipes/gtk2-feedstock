@@ -11,7 +11,8 @@ source:
 
 build:
   number: 2
-  skip: true  # [win]
+  skip: True    [win]
+  skip: True    [s390x]
 
 requirements:
   build:
@@ -27,6 +28,8 @@ requirements:
     - gettext     # [build_platform != target_platform]
     - glib        # [build_platform != target_platform]
     - pango       # [build_platform != target_platform]
+    - {{ cdt('libxau-devel') }}        # [linux]
+    - {{ cdt('libxcb') }}              # [linux]
   host:
     - atk
     - cairo
