@@ -28,6 +28,7 @@ requirements:
     - gettext     # [build_platform != target_platform]
     - glib        # [build_platform != target_platform]
     - pango       # [build_platform != target_platform]
+    - {{ cdt('libx11-devel') }}        # [linux]
     - {{ cdt('libxau-devel') }}        # [linux]
     - {{ cdt('libxcb') }}              # [linux]
   host:
