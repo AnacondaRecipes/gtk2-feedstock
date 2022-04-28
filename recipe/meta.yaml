@@ -11,36 +11,48 @@ source:
 
 build:
   number: 2
-  skip: True    [win]
-  skip: True    [s390x]
+  skip: True   # [win]
+  skip: True   # [s390x]
+  ignore_run_exports:
+    - atk
+  missing_dso_whitelist:
+    - "*/libc.*so*"
+    - "*/libm.*so*"
+    - "*/libpthread.*so*"
 
 requirements:
   build:
     - make
     - pkg-config
-    - perl *
+    - perl
     - gnuconfig  # [unix]
-    - gobject-introspection
     - {{ compiler('c') }}
-    - atk         # [build_platform != target_platform]
-    - cairo       # [build_platform != target_platform]
-    - gdk-pixbuf  # [build_platform != target_platform]
-    - gettext     # [build_platform != target_platform]
-    - glib        # [build_platform != target_platform]
-    - pango       # [build_platform != target_platform]
+    - {{ cdt('xorg-x11-proto-devel') }}  # [linux]
     - {{ cdt('libx11-devel') }}        # [linux]
     - {{ cdt('libxau-devel') }}        # [linux]
+    - {{ cdt('libxext-devel') }}       # [linux]
+    - {{ cdt('libxrender-devel') }}    # [linux]
     - {{ cdt('libxcb') }}              # [linux]
   host:
     - atk
     - cairo
+    - fontconfig
+    - freetype
+    - harfbuzz
     - gdk-pixbuf
-    - gettext
     - glib
+    - python
     - pango
   run:
+    - atk
+    - python
+    - cairo
+    - fontconfig
+    - freetype
+    - harfbuzz
+    - gdk-pixbuf
+    - glib
     - pango
-
 test:
   commands:
     - test -f ${PREFIX}/lib/libgtk-x11-2.0{{ SHLIB_EXT }}  # [linux]
