@@ -21,7 +21,6 @@ build:
     - '**/ld-linux-x86-64.so.2'  # [linux and x86_64]
     - '**/ld64.so.1'             # [linux and s390x]
   ignore_run_exports:
-    - gettext
     - pixman
 
 requirements:
@@ -30,7 +29,7 @@ requirements:
     - pkg-config
     - perl *
     - gnuconfig  # [unix]
-    - gobject-introspection
+    - gobject-introspection >=0.9.3
     - {{ compiler('c') }}
     - pthread-stubs                                       # [linux]
     - {{ cdt('libxau-devel') }}                           # [linux]
@@ -39,20 +38,25 @@ requirements:
     - {{ cdt('libx11-devel') }}                           # [linux]
     - {{ cdt('libxext-devel') }}                          # [linux]
   host:
-    - atk
-    - cairo
-    - gdk-pixbuf
-    - gettext
-    - glib
-    - pango
-    - harfbuzz
-    - fontconfig
-    - freetype
+    - atk-1.0 >=1.29.2
+    - cairo >=1.6
+    - gdk-pixbuf >=2.21.0
+    - gettext                                             # [osx]
+    - glib >=2.28.0
+    - pango >=1.20
+    - harfbuzz                                            # [linux]; (quartz used on osx)
+    - fontconfig                                          # [linux]; (quartz used on osx)
+    - freetype                                            # [linux]; (quartz used on osx)
   run:
-    - pango
-    - harfbuzz
-    - fontconfig
-    - freetype
+    - atk-1.0 >=1.29.2
+    - cairo >=1.6
+    - gdk-pixbuf >=2.21.0
+    - gettext                                             # [osx]
+    - glib >=2.28.0
+    - pango >=1.20    
+    - harfbuzz                                            # [linux]; (quartz used on osx)
+    - fontconfig                                          # [linux]; (quartz used on osx)
+    - freetype                                            # [linux]; (quartz used on osx)
 
 test:
   commands:
