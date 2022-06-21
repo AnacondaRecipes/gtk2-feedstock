@@ -22,6 +22,9 @@ build:
     - '**/ld64.so.1'             # [linux and s390x]
   ignore_run_exports:
     - pixman
+    - harfbuzz                   # [osx]; (quartz used on osx)
+    - fontconfig                 # [osx]; (quartz used on osx)
+    - freetype                   # [osx]; (quartz used on osx)
 
 requirements:
   build:
