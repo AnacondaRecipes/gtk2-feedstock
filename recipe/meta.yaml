@@ -21,12 +21,11 @@ requirements:
     - gnuconfig  # [unix]
     - gobject-introspection
     - {{ compiler('c') }}
-    - atk         # [build_platform != target_platform]
-    - cairo       # [build_platform != target_platform]
-    - gdk-pixbuf  # [build_platform != target_platform]
-    - gettext     # [build_platform != target_platform]
-    - glib        # [build_platform != target_platform]
-    - pango       # [build_platform != target_platform]
+    - {{ cdt('libxau-devel') }}                           # [linux]
+    - {{ cdt('xorg-x11-proto-devel') }}                   # [linux]
+    - {{ cdt('libxrender-devel') }}                       # [linux]
+    - {{ cdt('libx11-devel') }}                           # [linux]
+    - {{ cdt('libxext-devel') }}                          # [linux]
   host:
     - atk
     - cairo
