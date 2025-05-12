@@ -1,5 +1,5 @@
 {% set major_minor = "2.24" %}
-{% set version = ""major_minor + ".33""" %}
+{% set version = major_minor + ".33" %}
 
 package:
   name: gtk2
