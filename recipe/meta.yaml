@@ -46,7 +46,7 @@ requirements:
     - fontconfig {{ fontconfig }}  # [linux]; (quartz used on osx)
     - freetype {{ freetype }}  # [linux]; (quartz used on osx)
     - xorg-libxau
-    - xorg-xproto
+    - xorg-xorgproto
     - xorg-libxrender
     - xorg-libx11
     - xorg-libxext
