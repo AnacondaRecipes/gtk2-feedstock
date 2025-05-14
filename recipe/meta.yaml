@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: http://ftp.gnome.org/pub/GNOME/sources/gtk+/{{ major_minor }}/gtk+-{{ version }}.tar.xz
+  url: https://download.gnome.org/sources/gtk+/{{ major_minor }}/gtk+-{{ version }}.tar.xz
   sha256: ac2ac757f5942d318a311a54b0c80b5ef295f299c2a73c632f6bfb1ff49cc6da
 
 build:
