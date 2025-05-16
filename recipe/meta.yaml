@@ -45,11 +45,9 @@ requirements:
     - harfbuzz {{ harfbuzz }}  # [linux]; (quartz used on osx)
     - fontconfig {{ fontconfig }}  # [linux]; (quartz used on osx)
     - freetype {{ freetype }}  # [linux]; (quartz used on osx)
-    - xorg-libxau
-    - xorg-xorgproto
-    - xorg-libxrender
-    - xorg-libx11
-    - xorg-libxext
+    - xorg-libxrender  # [linux]
+    - xorg-libx11  # [linux]
+    - xorg-libxext  # [linux]
   run:
     - atk-1.0 >=1.29.2
     - cairo >=1.6
