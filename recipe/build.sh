@@ -14,6 +14,9 @@ elif [[ "${target_platform}" == linux-* ]]; then
     export LDFLAGS="${LDFLAGS} -Wl,-rpath=${PREFIX}/lib"
 fi
 
+export CFLAGS="${CFLAGS} -Wno-error=deprecated-declarations -Wno-error=cpp -Wno-error=pragmas -Wno-error=deprecated"
+export CXXFLAGS="${CXXFLAGS} -Wno-error=deprecated-declarations -Wno-error=cpp -Wno-error=pragmas -Wno-error=deprecated"
+
 ./configure \
   --prefix="${PREFIX}" \
   --disable-dependency-tracking \
@@ -25,6 +28,5 @@ fi
   --disable-gtk-doc \
   --with-html-dir="${SRC_DIR}/html"
 
-make V=0 -j$CPU_COUNT
-# make check -j$CPU_COUNT
+make V=1 -j$CPU_COUNT
 make install -j$CPU_COUNT
