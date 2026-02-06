@@ -28,12 +28,13 @@ build:
 
 requirements:
   build:
+    - {{ stdlib('c') }}
+    - {{ compiler('c') }}
     - make
     - pkg-config
     - perl *
     - gnuconfig  # [unix]
     - gobject-introspection >=0.9.3
-    - {{ compiler('c') }}
     - pthread-stubs  # [linux]
   host:
     - gobject-introspection >=0.9.3
