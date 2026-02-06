@@ -8,6 +8,9 @@ package:
 source:
   url: https://download.gnome.org/sources/gtk+/{{ major_minor }}/gtk+-{{ version }}.tar.xz
   sha256: ac2ac757f5942d318a311a54b0c80b5ef295f299c2a73c632f6bfb1ff49cc6da
+  patches:
+    - patches/0001-disable-tests-demos-docs.patch
+    - patches/0002-fix-GCompareFunc.patch
 
 build:
   number: 5
@@ -25,6 +28,7 @@ build:
     - harfbuzz  # [osx]; (quartz used on osx)
     - fontconfig  # [osx]; (quartz used on osx)
     - freetype  # [osx]; (quartz used on osx)
+    - glib
 
 requirements:
   build:
@@ -67,7 +71,7 @@ test:
     - test -f ${PREFIX}/lib/libgtk-quartz-2.0{{ SHLIB_EXT }}  # [osx]
 
 about:
-  home: https://www.gtk.org/
+  home: https://www.gtk.org
   license: LGPL-2.1-or-later
   license_file: COPYING
   license_family: LGPL

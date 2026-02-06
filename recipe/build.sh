@@ -3,7 +3,7 @@
 cp $BUILD_PREFIX/share/gnuconfig/config.* .
 
 export XDG_DATA_DIRS=${XDG_DATA_DIRS}:$PREFIX/share
-
+export PKG_CONFIG_PATH=${PKG_CONFIG_PATH:-}:${PREFIX}/lib/pkgconfig:$BUILD_PREFIX/$BUILD/sysroot/usr/lib64/pkgconfig:$BUILD_PREFIX/$BUILD/sysroot/usr/share/pkgconfig
 
 GDKTARGET=""
 if [[ "${target_platform}" == osx-* ]]; then
@@ -14,23 +14,16 @@ elif [[ "${target_platform}" == linux-* ]]; then
     export LDFLAGS="${LDFLAGS} -Wl,-rpath=${PREFIX}/lib"
 fi
 
-configure_args=(
-    --disable-dependency-tracking
-    --disable-silent-rules
-    --disable-glibtest
-    --enable-introspection=yes
-    --with-gdktarget="${GDKTARGET}"
-    --disable-visibility
-    --with-html-dir="${SRC_DIR}/html"
-)
-
-export CFLAGS="${CFLAGS} -Wno-incompatible-pointer-types -Wno-deprecated-declarations"
-export CXXFLAGS="${CXXFLAGS} -Wno-incompatible-pointer-types -Wno-deprecated-declarations"
-export PKG_CONFIG_PATH=${PKG_CONFIG_PATH:-}:${PREFIX}/lib/pkgconfig:$BUILD_PREFIX/$BUILD/sysroot/usr/lib64/pkgconfig:$BUILD_PREFIX/$BUILD/sysroot/usr/share/pkgconfig
-
 ./configure \
-    --prefix="${PREFIX}" \
-    "${configure_args[@]}"
+  --prefix="${PREFIX}" \
+  --disable-dependency-tracking \
+  --disable-silent-rules \
+  --disable-glibtest \
+  --enable-introspection=yes \
+  --with-gdktarget="${GDKTARGET}" \
+  --disable-visibility \
+  --disable-gtk-doc \
+  --with-html-dir="${SRC_DIR}/html"
 
 make V=0 -j$CPU_COUNT
 # make check -j$CPU_COUNT

@@ -1,0 +1,43 @@
+From e651182aa1c01ab0a7877521693615b3f57745a1 Mon Sep 17 00:00:00 2001
+From: "Viacheslav Ch." <vchychyrko@anaconda.com>
+Date: Fri, 6 Feb 2026 18:46:48 +0200
+Subject: [PATCH] disable tests demos docs
+
+---
+ Makefile.am | 4 ++--
+ Makefile.in | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/Makefile.am b/Makefile.am
+index 8e3a2f1..a1c5b37 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -1,8 +1,8 @@
+ ## Makefile.am for GTK+
+ include $(top_srcdir)/Makefile.decl
+ 
+-SRC_SUBDIRS = gdk gtk modules demos tests perf
+-SUBDIRS = po po-properties $(SRC_SUBDIRS) docs m4macros build
++SRC_SUBDIRS = gdk gtk modules perf
++SUBDIRS = po po-properties $(SRC_SUBDIRS) m4macros build
+ 
+ # require automake 1.4
+ AUTOMAKE_OPTIONS = 1.7
+diff --git a/Makefile.in b/Makefile.in
+index 38b269b..412d5b8 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -565,8 +565,8 @@ XVFB_START = \
+ 	|| { echo "Gtk+Tests:ERROR: Failed to start Xvfb environment for X11 target tests."; exit 1; } \
+ 	&& DISPLAY=:$$XID && export DISPLAY
+ 
+-SRC_SUBDIRS = gdk gtk modules demos tests perf
+-SUBDIRS = po po-properties $(SRC_SUBDIRS) docs m4macros build
++SRC_SUBDIRS = gdk gtk modules perf
++SUBDIRS = po po-properties $(SRC_SUBDIRS) m4macros build
+ 
+ # require automake 1.4
+ AUTOMAKE_OPTIONS = 1.7
+-- 
+2.50.1 (Apple Git-155)
+
