@@ -36,6 +36,7 @@ requirements:
     - {{ compiler('c') }}
     - pthread-stubs  # [linux]
   host:
+    - gobject-introspection >=0.9.3
     - atk-1.0 >=1.29.2
     - cairo {{ cairo }}
     - gdk-pixbuf 2
