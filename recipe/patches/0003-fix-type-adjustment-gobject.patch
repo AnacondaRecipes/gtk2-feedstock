@@ -1,0 +1,109 @@
+From 9ada3b8003690e375919f4df79a4326d86002be3 Mon Sep 17 00:00:00 2001
+From: "Viacheslav Ch." <vchychyrko@anaconda.com>
+Date: Fri, 6 Feb 2026 20:16:55 +0200
+Subject: [PATCH] fix-type-adjustment-gobject
+
+---
+ gtk/gtkcellrendererspin.c | 2 +-
+ gtk/gtkcomboboxtext.c     | 2 +-
+ gtk/gtklabel.c            | 2 +-
+ gtk/gtkscalebutton.c      | 2 +-
+ gtk/gtktoolitemgroup.c    | 2 +-
+ gtk/gtktoolpalette.c      | 2 +-
+ gtk/gtkwidget.c           | 2 +-
+ 7 files changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/gtk/gtkcellrendererspin.c b/gtk/gtkcellrendererspin.c
+index 2a3961b..68e5b9a 100644
+--- a/gtk/gtkcellrendererspin.c
++++ b/gtk/gtkcellrendererspin.c
+@@ -207,7 +207,7 @@ gtk_cell_renderer_spin_set_property (GObject      *object,
+ 	}
+ 
+       if (obj)
+-	priv->adjustment = g_object_ref_sink (obj);
++	priv->adjustment = GTK_ADJUSTMENT (g_object_ref_sink (obj));
+       break;
+     case PROP_CLIMB_RATE:
+       priv->climb_rate = g_value_get_double (value);
+diff --git a/gtk/gtkcomboboxtext.c b/gtk/gtkcomboboxtext.c
+index 9ffba68..9b116f1 100644
+--- a/gtk/gtkcomboboxtext.c
++++ b/gtk/gtkcomboboxtext.c
+@@ -275,7 +275,7 @@ gtk_combo_box_text_buildable_custom_tag_start (GtkBuildable     *buildable,
+ 
+       parser_data = g_slice_new0 (ItemParserData);
+       parser_data->builder = g_object_ref (builder);
+-      parser_data->object = g_object_ref (buildable);
++      parser_data->object = g_object_ref (G_OBJECT (buildable));
+       parser_data->domain = gtk_builder_get_translation_domain (builder);
+       *parser = item_parser;
+       *data = parser_data;
+diff --git a/gtk/gtklabel.c b/gtk/gtklabel.c
+index c47de59..8e5bf78 100644
+--- a/gtk/gtklabel.c
++++ b/gtk/gtklabel.c
+@@ -1336,7 +1336,7 @@ gtk_label_buildable_custom_tag_start (GtkBuildable     *buildable,
+ 
+       parser_data = g_slice_new0 (PangoParserData);
+       parser_data->builder = g_object_ref (builder);
+-      parser_data->object = g_object_ref (buildable);
++      parser_data->object = g_object_ref (G_OBJECT (buildable));
+       *parser = pango_parser;
+       *data = parser_data;
+       return TRUE;
+diff --git a/gtk/gtkscalebutton.c b/gtk/gtkscalebutton.c
+index df9b574..a4cda0d 100644
+--- a/gtk/gtkscalebutton.c
++++ b/gtk/gtkscalebutton.c
+@@ -698,7 +698,7 @@ gtk_scale_button_set_adjustment	(GtkScaleButton *button,
+     {
+       if (button->priv->adjustment)
+         g_object_unref (button->priv->adjustment);
+-      button->priv->adjustment = g_object_ref_sink (adjustment);
++      button->priv->adjustment = GTK_ADJUSTMENT (g_object_ref_sink (adjustment));
+ 
+       if (button->priv->scale)
+         gtk_range_set_adjustment (GTK_RANGE (button->priv->scale), adjustment);
+diff --git a/gtk/gtktoolitemgroup.c b/gtk/gtktoolitemgroup.c
+index 3008cba..722a463 100644
+--- a/gtk/gtktoolitemgroup.c
++++ b/gtk/gtktoolitemgroup.c
+@@ -2044,7 +2044,7 @@ gtk_tool_item_group_insert (GtkToolItemGroup *group,
+   parent = gtk_widget_get_parent (GTK_WIDGET (group));
+ 
+   child = g_new (GtkToolItemGroupChild, 1);
+-  child->item = g_object_ref_sink (item);
++  child->item = GTK_WIDGET (g_object_ref_sink (item));
+   child->homogeneous = TRUE;
+   child->expand = FALSE;
+   child->fill = TRUE;
+diff --git a/gtk/gtktoolpalette.c b/gtk/gtktoolpalette.c
+index b984193..1353fd7 100644
+--- a/gtk/gtktoolpalette.c
++++ b/gtk/gtktoolpalette.c
+@@ -734,7 +734,7 @@ gtk_tool_palette_add (GtkContainer *container,
+ 
+   g_ptr_array_add (palette->priv->groups, info);
+   info->pos = palette->priv->groups->len - 1;
+-  info->widget = g_object_ref_sink (child);
++  info->widget = GTK_WIDGET (g_object_ref_sink (child));
+ 
+   gtk_widget_set_parent (child, GTK_WIDGET (palette));
+ }
+diff --git a/gtk/gtkwidget.c b/gtk/gtkwidget.c
+index 1d1f6bb..6413a0d 100644
+--- a/gtk/gtkwidget.c
++++ b/gtk/gtkwidget.c
+@@ -10679,7 +10679,7 @@ gtk_widget_buildable_custom_tag_start (GtkBuildable     *buildable,
+       AccelGroupParserData *parser_data;
+ 
+       parser_data = g_slice_new0 (AccelGroupParserData);
+-      parser_data->object = g_object_ref (buildable);
++      parser_data->object = g_object_ref (G_OBJECT (buildable));
+       *parser = accel_group_parser;
+       *data = parser_data;
+       return TRUE;
+-- 
+2.50.1 (Apple Git-155)
+

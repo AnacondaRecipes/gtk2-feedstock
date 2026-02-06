@@ -11,7 +11,7 @@ source:
   patches:
     - patches/0001-disable-tests-demos-docs.patch
     - patches/0002-fix-GCompareFunc.patch
-    - patches/0003-fix-type-adjustment.patch    # [linux]
+    - patches/0003-fix-type-adjustment-gobject.patch    # [linux]
 
 build:
   number: 5
