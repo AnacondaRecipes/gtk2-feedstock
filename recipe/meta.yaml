@@ -8,9 +8,14 @@ package:
 source:
   url: https://download.gnome.org/sources/gtk+/{{ major_minor }}/gtk+-{{ version }}.tar.xz
   sha256: ac2ac757f5942d318a311a54b0c80b5ef295f299c2a73c632f6bfb1ff49cc6da
+  patches:
+    - patches/0001-disable-tests-demos-docs.patch
+    # Patches 0002/3 made for Old GTK2 + New GLIB. Refactoring it with a new GTK2
+    - patches/0002-fix-GCompareFunc.patch
+    - patches/0003-fix-type-adjustment-gobject.patch    # [linux]
 
 build:
-  number: 4
+  number: 5
   skip: true  # [win]
   missing_dso_whitelist:  # [linux]
     - "**/libc.so.6"  # [linux]
@@ -25,23 +30,26 @@ build:
     - harfbuzz  # [osx]; (quartz used on osx)
     - fontconfig  # [osx]; (quartz used on osx)
     - freetype  # [osx]; (quartz used on osx)
+    - glib
 
 requirements:
   build:
+    - {{ stdlib('c') }}
+    - {{ compiler('c') }}
     - make
     - pkg-config
     - perl *
     - gnuconfig  # [unix]
     - gobject-introspection >=0.9.3
-    - {{ compiler('c') }}
     - pthread-stubs  # [linux]
   host:
+    - gobject-introspection >=0.9.3
     - atk-1.0 >=1.29.2
     - cairo {{ cairo }}
     - gdk-pixbuf 2
     - gettext  # [osx]
-    - glib 2
-    - pango 1.50.7
+    - glib {{ glib }}
+    - pango {{ pango }}
     - harfbuzz {{ harfbuzz }}  # [linux]; (quartz used on osx)
     - fontconfig {{ fontconfig }}  # [linux]; (quartz used on osx)
     - freetype {{ freetype }}  # [linux]; (quartz used on osx)
@@ -65,7 +73,7 @@ test:
     - test -f ${PREFIX}/lib/libgtk-quartz-2.0{{ SHLIB_EXT }}  # [osx]
 
 about:
-  home: https://www.gtk.org/
+  home: https://www.gtk.org
   license: LGPL-2.1-or-later
   license_file: COPYING
   license_family: LGPL

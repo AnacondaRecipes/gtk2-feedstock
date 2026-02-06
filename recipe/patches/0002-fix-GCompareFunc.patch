@@ -1,0 +1,25 @@
+From 864e58c42e0388398aedc9e29b94c3715237ce4c Mon Sep 17 00:00:00 2001
+From: "Viacheslav Ch." <vchychyrko@anaconda.com>
+Date: Fri, 6 Feb 2026 19:03:46 +0200
+Subject: [PATCH] fix GCompareFunc
+
+---
+ gtk/gtkscale.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/gtk/gtkscale.c b/gtk/gtkscale.c
+index 4317523..a573b2f 100644
+--- a/gtk/gtkscale.c
++++ b/gtk/gtkscale.c
+@@ -1471,7 +1471,7 @@ gtk_scale_add_mark (GtkScale        *scale,
+   mark->position = position;
+  
+   priv->marks = g_slist_insert_sorted_with_data (priv->marks, mark,
+-                                                 (GCompareFunc) compare_marks,
++                                                 compare_marks,
+                                                  GINT_TO_POINTER (
+                                                    gtk_range_get_inverted (GTK_RANGE (scale)) 
+                                                    ));
+-- 
+2.50.1 (Apple Git-155)
+
