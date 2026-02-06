@@ -40,8 +40,8 @@ requirements:
     - cairo {{ cairo }}
     - gdk-pixbuf 2
     - gettext  # [osx]
-    - glib 2
-    - pango 1.50.7
+    - glib {{ glib }}
+    - pango {{ pango }}
     - harfbuzz {{ harfbuzz }}  # [linux]; (quartz used on osx)
     - fontconfig {{ fontconfig }}  # [linux]; (quartz used on osx)
     - freetype {{ freetype }}  # [linux]; (quartz used on osx)
